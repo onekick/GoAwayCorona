@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -52,7 +51,7 @@
     <!-- Center Area -->
 
 
-    <!-- 1.  -->
+    <!-- 1. 초기화 -->
     <LinearLayout
         android:id="@+id/linearLayoutReset"
         android:layout_width="match_parent"
@@ -66,7 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:text="사용자 데이터"
+            android:text="측정 데이터"
             android:textColor="#FFFFFF"
             android:textSize="28dp"
             android:gravity="left|center_vertical"
@@ -81,7 +80,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="지우기"
+                android:text="초기화"
                 android:textColor="#FFFFFF"
                 android:textSize="28dp"
                 />
@@ -97,10 +96,54 @@
     </LinearLayout>
 
 
+    <!-- 2. 측정 값 파일 저장 -->
+    <LinearLayout
+        android:id="@+id/linearLayoutSave"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:background="#000000"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="측정 데이터"
+            android:textColor="#FFFFFF"
+            android:textSize="28dp"
+            android:gravity="left|center_vertical"
+            android:layout_marginLeft="25dp"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="right|center_vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="저장"
+                android:textColor="#FFFFFF"
+                android:textSize="28dp"
+                />
+            <ImageView
+                android:id="@+id/imageViewInfoLevel"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/information"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="40"
+        android:layout_weight="30"
         android:orientation="horizontal"
         >
 
