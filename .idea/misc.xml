@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_address_api.xml" value="0.21979166666666666" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_area_path.xml" value="0.32916666666666666" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_check_contact.xml" value="0.2667572463768116" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_choose_information.xml" value="0.1" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_edit_my_path.xml" value="0.21979166666666666" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_my_path.xml" value="0.1609375" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_my_path_list.xml" value="0.20878623188405798" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_select_diseases.xml" value="0.2667572463768116" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/activity_setting.xml" value="0.23333333333333334" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/dialog_edit_my_path.xml" value="0.1609375" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/layout_address_api.xml" value="0.1" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/layout_edit_my_path.xml" value="0.1" />
+        <entry key="..\:/workspace/GoAwayCorona/app/src/main/res/layout/layout_item.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="75"
+    >
+
+    <!-- Top Bar  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        >
+
+        <ImageView
+            android:id="@+id/imageViewHome"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:src="@drawable/home"
+            android:scaleType="fitCenter"
+            android:padding="20dp"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:text="감염병 접촉 알림"
+            android:textSize="28dp"
+            android:textColor="#999999"
+            android:gravity="center"
+            />
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:src="@drawable/back"
+            android:scaleType="fitCenter"
+            android:padding="20dp"
+            />
+
+
+    </LinearLayout>
+
+    <!-- Center Area -->
+
+
+    <!-- 1. Sub Title Area -->
+    <LinearLayout
+        android:id="@+id/linearLayoutSelectDiseases"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:background="#000000"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="감염병 명칭"
+            android:textColor="#FFFFFF"
+            android:textSize="28dp"
+            android:gravity="left|center_vertical"
+            android:layout_marginLeft="25dp"
+            />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="right|center_vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2 급"
+                android:textColor="#FFFFFF"
+                android:textSize="28dp"
+                />
+            <ImageView
+                android:id="@+id/imageViewInfoLevel"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/information"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="10dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!-- 2. Content Area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40"
+        android:orientation="vertical"
+        android:weightSum="5"
+        android:background="#FFFFFF"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="- 정보를 받은 감염병 선택/ 등급에 관한 정보"
+            android:textColor="#333333"
+            android:textSize="16dp"
+            android:gravity="left|center_vertical"
+            android:layout_marginLeft="25dp"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:src="@drawable/content_select_diseases"
+            />
+
+    </LinearLayout>
+
+
+
+
+    <!-- Bottom Bar  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:orientation="horizontal"
+        android:weightSum="50"
+        >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="설정"
+                android:textSize="24dp"
+                android:textColor="#999999"
+                />
+            <ImageView
+                android:id="@+id/imageViewSetting"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/setting"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo_7"
+                android:scaleType="fitCenter"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="코로나저리가"
+                android:textSize="24dp"
+                android:textColor="#999999"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="정보"
+                android:textSize="24dp"
+                android:textColor="#999999"
+                />
+            <ImageView
+                android:id="@+id/imageViewQuestion"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/question"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

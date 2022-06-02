@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="주소입력"
+        android:textSize="20dp"
+        android:textColor="#333333"
+        />
+
+
+    <EditText
+        android:id="@+id/edit_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="주소를 입력해주세요."
+        android:inputType="textPersonName"
+        />
+
+    <!-- 변경 전 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="변경 전"
+        android:textColor="#333333"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="0dp"
+        android:weightSum="10"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        >
+
+        <!-- 시간 2-->
+        <TextView
+            android:id="@+id/textViewDateTime"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="2022-05-23 15:00"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:padding="5dp"
+            />
+        <!-- 주소 7-->
+        <TextView
+            android:id="@+id/textViewAddress"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:text="대전 유성구 전민로 71 삼성푸른아파트 상가동 104호"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:padding="5dp"
+            />
+        <!-- 상태 1-->
+        <TextView
+            android:id="@+id/textViewStatus"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="수정 필요"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:background="#FF3333"
+            android:gravity="center"
+            android:padding="5dp"
+            />
+
+    </LinearLayout>
+
+
+    <!-- 변경 후 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="변경 후"
+        android:textColor="#333333"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="0dp"
+        android:weightSum="10"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        >
+
+        <!-- 시간 2-->
+        <TextView
+            android:id="@+id/textViewDateTimeAfter"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:text="2022-05-23 15:00"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:padding="5dp"
+            />
+        <!-- 주소 7-->
+        <TextView
+            android:id="@+id/textViewAddressAfter"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:text="대전 유성구 전민로 71 삼성푸른아파트 상가동 104호"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:padding="5dp"
+            />
+        <!-- 상태 1-->
+        <TextView
+            android:id="@+id/textViewStatusAfter"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="수정 필요"
+            android:textColor="#FFFFFF"
+            android:textSize="14dp"
+            android:background="#FF3333"
+            android:gravity="center"
+            android:padding="5dp"
+            />
+
+    </LinearLayout>
+
+    <!-- 버튼 2개 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        >
+
+        <Button
+            android:id="@+id/buttonAutoEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자동수정"
+            android:textColor="#000000"
+            android:textSize="28dp"
+            android:layout_margin="25dp"/>
+
+        <Button
+            android:id="@+id/buttonDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정완료"
+            android:textColor="#000000"
+            android:textSize="28dp"
+            android:layout_margin="25dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
