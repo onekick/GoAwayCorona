@@ -42,6 +42,7 @@ public class MyPathListActivity extends Activity {
     private TextView textViewAddressAfter;
     private TextView textViewStatusAfter;
     private MyApp app;
+    private boolean isModifiedAutomatically = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MyPathListActivity extends Activity {
         setContentView(R.layout.activity_my_path_list);
 
         app = (MyApp)getApplicationContext();
+        app.setStartTime();
 
         textViewAccuracy = findViewById(R.id.textViewAccuracy);
 
@@ -124,8 +126,6 @@ public class MyPathListActivity extends Activity {
                         }else {
                             Toast.makeText(getApplicationContext(), "인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
                 });
 
@@ -192,7 +192,7 @@ public class MyPathListActivity extends Activity {
                         String address = itemData.getAns();
                         edit_addr.setText(address);
                         updateDialog(itemData);
-                        app.setModifiedAutomatically(itemData.id, true);
+                        isModifiedAutomatically = true;
                     }
                 });
 
@@ -208,11 +208,23 @@ public class MyPathListActivity extends Activity {
                         }
                         dialog.dismiss();
                         savePreference(pageNumber+","+indexNumber, address);
+
+                        // 변경된 위치 값을 저장한다.
+                        app.setModification(itemData.getCase_num(),itemData.sequence_num, isModifiedAutomatically, address);
+
+                        isModifiedAutomatically=false;
+
                         reloadListView();
                     }
                 });
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        app.setStopTime(pageNumber);
     }
 
     private void updateDialog(ItemData itemData) {
@@ -256,10 +268,23 @@ public class MyPathListActivity extends Activity {
         String[] record = null;
         adapter.removeAllItems();
         try {
+            int sequence_num = 0;
+            int case_num = 1;
             while ((record = read.readNext()) != null){
                 // skip first field information
                 if( record[0].contains("case")) continue;
                 ItemData item = new ItemData(record);
+
+                // 각 케이스 내에서 순서를 sequence_num에 저장시켜준다.
+                if( case_num == item.getCase_num()) {
+                    item.sequence_num = sequence_num;
+                    sequence_num++;
+                }
+                else {
+                    case_num = item.getCase_num();
+                    sequence_num = 0;
+                }
+
                 // add items
                 if( item.getCase_num()==pageNumber) {
                     adapter.addItem(item);
@@ -311,6 +336,7 @@ public class MyPathListActivity extends Activity {
                     if (data != null) {
                         Log.i("test", "data:" + data);
                         edit_addr.setText(data);
+                        isModifiedAutomatically = false;
                         ItemData itemData =(ItemData) adapter.getItem(indexNumber);
                         updateDialog(itemData);
                     }

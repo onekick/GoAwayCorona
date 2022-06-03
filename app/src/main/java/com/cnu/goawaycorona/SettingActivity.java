@@ -101,7 +101,7 @@ public class SettingActivity extends Activity {
                     public void onClick(View v) { // 클릭 이벤트 처리
                         String filePath = app.save();
                         dialog.dismiss();
-                        Toast.makeText(getBaseContext(),"저장경로:"+filePath, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"파일명:"+filePath, Toast.LENGTH_LONG).show();
                     }
                 });
 

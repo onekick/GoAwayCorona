@@ -3,22 +3,22 @@ package com.cnu.goawaycorona;
 import android.graphics.Point;
 
 public class Modification {
-    Point prev = new Point(0,0);
-    Point next = new Point(0,0);
+    Position prev = new Position(0,0);
+    Position next = new Position(0,0);
 
-    public Point getNext() {
+    public Position getNext() {
         return next;
     }
 
-    public void setNext(Point next) {
+    public void setNext(Position next) {
         this.next = next;
     }
 
-    public Point getPrev() {
+    public Position getPrev() {
         return prev;
     }
 
-    public void setPrev(Point prev) {
+    public void setPrev(Position prev) {
         this.prev = prev;
     }
 }

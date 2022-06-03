@@ -42,6 +42,10 @@ public class ItemData {
             this.app_x = Double.valueOf(record[6]);
             this.app_y = Double.valueOf(record[7]);
             this.basic_error = Double.valueOf(record[8]);
+
+            this.isCorrect = false;
+            this.isModified = false;
+            this.isModifiedAutomatically = false;
         }
         catch (Exception e) {
             e.printStackTrace();
