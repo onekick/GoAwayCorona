@@ -109,6 +109,18 @@ public class SettingActivity extends Activity {
             }
         });
 
+        // 결과 보기창 띄우기
+        LinearLayout linearLayoutResult = findViewById(R.id.linearLayoutResult);
+        linearLayoutResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("SettingActivity", "linearLayoutResult clicked.");
+                Intent intent = new Intent(SettingActivity.this, MainActivityResult.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
 

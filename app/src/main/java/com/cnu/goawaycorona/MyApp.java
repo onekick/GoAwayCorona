@@ -2,6 +2,7 @@ package com.cnu.goawaycorona;
 
 import android.app.Application;
 import android.content.ClipData;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Environment;
@@ -399,32 +400,7 @@ public class MyApp extends Application {
     public String save() {
         createNewLog();
 
-        String content = "";
-
-
-        for(int i=0; i<10; i++) {
-            // Metric 1~7까지 저장하기
-            int case_num = i+1;
-
-            double metric_1_1_1 = getMetric_1_1_1(case_num);    // 동선 수정 후 감소된 오차(m)
-            String metric_1_1_2 = getMetric_1_1_2(case_num);          // 수정한 오류 위치 비율(%)
-            boolean metric_1_2_2 = getMetric_1_2_2(case_num);       // 동선 수정 후 정확도 만족 여부(Boolean)
-            String metric_2_1_1 = getMetric_2_1_1(case_num);     // 잘못된 동선 입력 비율(%)
-            double metric_2_1_2 = getMetric_2_1_2(case_num);    // 잘못 수정한 위치로 발생한 오차(m)
-            String metric_2_2_1 = getMetric_2_2_1(case_num);        // 평균 완료 시간(sec)
-            String metric_2_2_2 = getMetric_2_2_2(case_num);        // 자동 선택 비율(%)
-
-            if(i>0) content += "\n";
-            content += String.valueOf(metric_1_1_1);
-            content += "," + metric_1_1_2;
-            content += "," + metric_1_2_2;
-            content += "," + metric_2_1_1;
-            content += "," + metric_2_1_2;
-            content += "," + metric_2_2_1;
-            content += "," + metric_2_2_2;
-        }
-
-        writeFile(currentFileName, content);
+        writeFile(currentFileName, getResult());
 
         String filePath = currentFileName;
         return filePath;
@@ -477,5 +453,34 @@ public class MyApp extends Application {
                 else item.isCorrect = false;
             }
         }
+    }
+
+    public String getResult() {
+        String content = "";
+
+
+        for(int i=0; i<10; i++) {
+            // Metric 1~7까지 생성하기
+            int case_num = i+1;
+
+            double metric_1_1_1 = getMetric_1_1_1(case_num);    // 동선 수정 후 감소된 오차(m)
+            String metric_1_1_2 = getMetric_1_1_2(case_num);          // 수정한 오류 위치 비율(%)
+            boolean metric_1_2_2 = getMetric_1_2_2(case_num);       // 동선 수정 후 정확도 만족 여부(Boolean)
+            String metric_2_1_1 = getMetric_2_1_1(case_num);     // 잘못된 동선 입력 비율(%)
+            double metric_2_1_2 = getMetric_2_1_2(case_num);    // 잘못 수정한 위치로 발생한 오차(m)
+            String metric_2_2_1 = getMetric_2_2_1(case_num);        // 평균 완료 시간(sec)
+            String metric_2_2_2 = getMetric_2_2_2(case_num);        // 자동 선택 비율(%)
+
+            if(i>0) content += "\n";
+            content += String.valueOf(metric_1_1_1);
+            content += "," + metric_1_1_2;
+            content += "," + metric_1_2_2;
+            content += "," + metric_2_1_1;
+            content += "," + metric_2_1_2;
+            content += "," + metric_2_2_1;
+            content += "," + metric_2_2_2;
+        }
+
+        return content;
     }
 }
