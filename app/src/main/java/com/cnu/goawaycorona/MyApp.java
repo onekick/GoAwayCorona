@@ -1,6 +1,7 @@
 package com.cnu.goawaycorona;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Environment;
 
@@ -61,6 +62,57 @@ public class MyApp extends Application {
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public int getCountMissInputPosition()
+    {
+        // cvs 파일에서 status가 0인것만 리스트로 가져온다.
+        Vector<ItemData> list = new Vector<ItemData>();
+
+        InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.data));
+        BufferedReader reader = new BufferedReader(is);
+        CSVReader read = new CSVReader(reader);
+        String[] record = null;
+        try {
+            int sequence_num = 0;
+            int case_num = 1;
+            while ((record = read.readNext()) != null){
+                // skip first field information
+                if( record[0].contains("case")) continue;
+                ItemData item = new ItemData(record);
+
+                // 각 케이스 내에서 순서를 sequence_num에 저장시켜준다.
+                if( case_num == item.getCase_num()) {
+                    item.sequence_num = sequence_num;
+                    sequence_num++;
+                }
+                else {
+                    case_num = item.getCase_num();
+                    sequence_num = 0;
+                }
+
+                // see items
+                if( item.isStatus()==false) { // 이상 값이면
+                    list.add(item);
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        int countCorrect = 0;
+        // Preference에서 수정된 데이터가 있는지 확인한다.
+        for(ItemData item : list) {
+            // 만약 수정 데이터의 주소가 원본데이터의 주소와 같다면 맞은개수를 1증가시킨다.
+            String value = loadPreference(item.getCase_num() + "," + item.sequence_num);
+            if (value != null && item.getAns().equals(value)) countCorrect++;
+        }
+
+        // 잘못입력한 개수 = 총에러수 - 맞은개수
+        int countMiss = countTotalError - countCorrect;
+
+        return countMiss;
     }
 
     private double getDistance(double x1, double y1, double x2, double y2){
@@ -128,7 +180,7 @@ public class MyApp extends Application {
         return getStringPercentage(countMissInputPosition,countTotalErrorPosition);
     }
 
-    public double getMetric_2_1_2(Point p1, Point p2) {
+    public double getMetric_2_1_2(Vector<Modification> list) {
         //5. Metric 2-1-2 : 잘못 수정한 위치로 발생한 오차(m)
         //
         //    유클리드 거리로 계산 sqrt((x_1-x_2)^2-(y_1-y_2)^2)
@@ -245,6 +297,7 @@ public class MyApp extends Application {
 
         String content = "";
 
+
         for(int i=0; i<10; i++) {
             // Metric 1~7까지 저장하기
             Vector<Modification> list = listModification[i];
@@ -253,10 +306,8 @@ public class MyApp extends Application {
             double metric_1_1_1 = getMetric_1_1_1(list);
             String metric_1_1_2 = getMetric_1_1_2(countModification, countTotalError);
             boolean metric_1_2_2 = getMetric_1_2_2();
-            String metric_2_1_1 = getMetric_2_1_1(); // 할차례: 파라미터 넣어 줘야 함
-                                                        // 그다음 -> 초기화/저장했으니, 실제 시간/수정을 측정하도록 해야한다.
-                                                            // MyApp의 필드들을 업데이트 하는지 체크
-            double metric_2_1_2 = getMetric_2_1_2();
+            String metric_2_1_1 = getMetric_2_1_1(getCountMissInputPosition(), countTotalError);
+            double metric_2_1_2 = getMetric_2_1_2(list);
             String metric_2_2_1 = getMetric_2_2_1();
             String metric_2_2_2 = getMetric_2_2_2();
         }
@@ -273,5 +324,28 @@ public class MyApp extends Application {
 
     public void setSatisfied(boolean b) {
         isSatified = b;
+    }
+
+
+
+    private void clearPreference() {
+        SharedPreferences preferences =
+                getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+    private String loadPreference(String key) {
+        SharedPreferences preferences =
+                getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+        return preferences.getString(key, null);
+    }
+
+    private void savePreference(String key, String value) {
+        SharedPreferences preferences =
+                getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor= preferences.edit();
+        editor.putString(key, value);
+        editor.commit();
     }
 }
