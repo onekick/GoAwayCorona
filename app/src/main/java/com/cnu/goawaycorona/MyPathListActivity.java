@@ -41,12 +41,15 @@ public class MyPathListActivity extends Activity {
     private TextView textViewDateTimeAfter;
     private TextView textViewAddressAfter;
     private TextView textViewStatusAfter;
+    private MyApp app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀바 제거
         setContentView(R.layout.activity_my_path_list);
+
+        app = (MyApp)getApplicationContext();
 
         textViewAccuracy = findViewById(R.id.textViewAccuracy);
 
@@ -189,6 +192,7 @@ public class MyPathListActivity extends Activity {
                         String address = itemData.getAns();
                         edit_addr.setText(address);
                         updateDialog(itemData);
+                        app.setModifiedAutomatically(itemData.id, true);
                     }
                 });
 

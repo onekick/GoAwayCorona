@@ -5,6 +5,9 @@ import android.util.Log;
 public class ItemData {
     int case_num = 0;
     int sequence_num = 0;
+    boolean isModified = false;
+    boolean isModifiedAutomatically = false;
+    boolean isCorrect = false;
     boolean status = true;
     String time	= null;
     String ans = null;

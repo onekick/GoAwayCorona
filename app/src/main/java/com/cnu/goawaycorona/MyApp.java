@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.Vector;
 
 public class MyApp extends Application {
-
+    private static final String PREFERENCE_NAME = "MyPreferecne";
     private boolean isSatified = true;
     private final long[] arrElapsedTime = new long[10];   // 케이스 종료 시 업데이트 구현 해야함
     long startTime = 0;                             // 케이스 시작 시 업데이트 구현 해야함
@@ -30,6 +30,10 @@ public class MyApp extends Application {
 
     Vector<Modification>[] listModification = null; // 위치 수정 시 업데이트 구현 해야 함.
     private int countTotalError = 0;
+    private int countMissInputPosition = 0;
+
+    // cvs 파일에서 status가 0인것만 리스트로 가져온다.
+    Vector<ItemData> listCurrentError = new Vector<ItemData>();
 
     @Override
     public void onCreate() {
@@ -43,32 +47,9 @@ public class MyApp extends Application {
             listModification[i] = new Vector<Modification>();
         }
 
+
+
         // get Total Error
-        InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.data));
-        BufferedReader reader = new BufferedReader(is);
-        CSVReader read = new CSVReader(reader);
-        String[] record = null;
-        try {
-            while ((record = read.readNext()) != null){
-                // skip first field information
-                if( record[0].contains("case")) continue;
-                ItemData item = new ItemData(record);
-                // see items
-                if( item.isStatus()==false) { // 이상 값이면
-                    countTotalError++;
-                }
-            }
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public int getCountMissInputPosition()
-    {
-        // cvs 파일에서 status가 0인것만 리스트로 가져온다.
-        Vector<ItemData> list = new Vector<ItemData>();
-
         InputStreamReader is = new InputStreamReader(getResources().openRawResource(R.raw.data));
         BufferedReader reader = new BufferedReader(is);
         CSVReader read = new CSVReader(reader);
@@ -93,7 +74,8 @@ public class MyApp extends Application {
 
                 // see items
                 if( item.isStatus()==false) { // 이상 값이면
-                    list.add(item);
+                    countTotalError++;
+                    listCurrentError.add(item);
                 }
             }
         }
@@ -103,17 +85,29 @@ public class MyApp extends Application {
 
         int countCorrect = 0;
         // Preference에서 수정된 데이터가 있는지 확인한다.
-        for(ItemData item : list) {
+        for(ItemData item : listCurrentError) {
             // 만약 수정 데이터의 주소가 원본데이터의 주소와 같다면 맞은개수를 1증가시킨다.
             String value = loadPreference(item.getCase_num() + "," + item.sequence_num);
-            if (value != null && item.getAns().equals(value)) countCorrect++;
+            if (value != null) {
+                item.isModified = true;
+                if(item.getAns().equals(value)) {
+                    countCorrect++;
+                    item.isCorrect = true;
+                }
+                else{
+                    item.isCorrect = false;
+                }
+            }
+            else {
+                item.isModified = false;
+            }
         }
 
         // 잘못입력한 개수 = 총에러수 - 맞은개수
-        int countMiss = countTotalError - countCorrect;
-
-        return countMiss;
+        countMissInputPosition = countTotalError - countCorrect;
     }
+
+
 
     private double getDistance(double x1, double y1, double x2, double y2){
         return Math.sqrt( Math.pow( (x1-x2),2) - Math.pow((y1-y2),2) );
@@ -185,7 +179,19 @@ public class MyApp extends Application {
         //
         //    유클리드 거리로 계산 sqrt((x_1-x_2)^2-(y_1-y_2)^2)
         //            (정답 위치, 오류 위치) - (정답 위치, 잘못 수정한 위치)
-        return getDistance(p1,p2);
+
+
+        // 입력이 잘못된 아이템들의 기본오차의 평균
+        double sum = 0;
+        for(ItemData item: listCurrentError) {
+            if( item.isModified && !item.isCorrect) {
+                sum+= item.basic_error;
+            }
+        }
+
+
+
+        return sum/listCurrentError.size();
     }
 
     public String getMetric_2_2_1() {
@@ -212,10 +218,16 @@ public class MyApp extends Application {
         return average;
     }
 
-    public String getMetric_2_2_2(int countAutoSelection, int countTotalErrorPoint) {
+    public String getMetric_2_2_2() {
         //            7. Metric 2-2-2 : 자동 선택 비율(%)
         //    Case별 자동수정 선택 개수 / 전체 오류위치 개수
-        return getStringPercentage(countAutoSelection, countTotalErrorPoint);
+
+        int countAutoSelection = 0;
+        for(ItemData item : listCurrentError) {
+            if(item.isModifiedAutomatically) countAutoSelection++;
+        }
+
+        return getStringPercentage(countAutoSelection, countTotalError);
     }
 
 
@@ -306,7 +318,7 @@ public class MyApp extends Application {
             double metric_1_1_1 = getMetric_1_1_1(list);
             String metric_1_1_2 = getMetric_1_1_2(countModification, countTotalError);
             boolean metric_1_2_2 = getMetric_1_2_2();
-            String metric_2_1_1 = getMetric_2_1_1(getCountMissInputPosition(), countTotalError);
+            String metric_2_1_1 = getMetric_2_1_1(countMissInputPosition, countTotalError);
             double metric_2_1_2 = getMetric_2_1_2(list);
             String metric_2_2_1 = getMetric_2_2_1();
             String metric_2_2_2 = getMetric_2_2_2();
